@@ -1,7 +1,5 @@
-FROM node:22-alpine
+FROM node:22-bookworm-slim
 WORKDIR /app
-
-RUN apk add --no-cache libc6-compat
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
