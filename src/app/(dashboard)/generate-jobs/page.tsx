@@ -18,6 +18,17 @@ import type {
 
 type GenerateJobResult = DashboardGenerationJobResponse | DashboardVideoJobResponse;
 
+const MUAPI_RECOLOR_STRATEGIES = [
+  { value: "muapi_flux-kontext-max-i2i", label: "MuAPI · Flux Kontext Max I2I" },
+  { value: "muapi_flux-kontext-pro-i2i", label: "MuAPI · Flux Kontext Pro I2I" },
+  { value: "muapi_bytedance-seededit-v3", label: "MuAPI · ByteDance SeedEdit V3" },
+  { value: "muapi_gpt4o-edit", label: "MuAPI · GPT-4o Edit" },
+  { value: "muapi_wan2.5-image-edit", label: "MuAPI · Wan 2.5 Image Edit" },
+  { value: "muapi_qwen-image-edit-plus", label: "MuAPI · Qwen Image Edit Plus" },
+  { value: "muapi_nano-banana-edit", label: "MuAPI · Nano Banana Edit" },
+  { value: "muapi_nano-banana-2-edit", label: "MuAPI · Nano Banana 2 Edit" },
+] as const;
+
 export default function GenerateJobsPage() {
   const { data: inventory, isLoading: inventoryLoading } = useInventory();
   const { data: colorSpecs, isLoading: colorSpecsLoading } = useColorSpecs();
@@ -371,8 +382,10 @@ export default function GenerateJobsPage() {
                   <select value={recolorStrategy} onChange={(e) => setRecolorStrategy(e.target.value)} className="h-10 w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 text-sm text-slate-200 outline-none">
                     <option value="deterministic_basic">deterministic_basic</option>
                     <option value="deterministic_enhanced">deterministic_enhanced</option>
-                    <option value="muapi_nano-banana-2-edit">muapi_nano-banana-2-edit</option>
                     <option value="auto">auto</option>
+                    {MUAPI_RECOLOR_STRATEGIES.map((strategy) => (
+                      <option key={strategy.value} value={strategy.value}>{strategy.label}</option>
+                    ))}
                   </select>
                 </div>
               )}
