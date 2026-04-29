@@ -10,6 +10,7 @@ import type {
   VehicleColorAsset,
   VideoJob,
   DashboardGenerationJobResponse,
+  DashboardVideoJobResponse,
 } from "@/lib/types";
 
 const API_BASE_URL = "";
@@ -151,6 +152,28 @@ class ApiClient {
     priority: string;
   }): Promise<DashboardGenerationJobResponse> {
     return this.request('/api/generation-jobs', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async createVideoJob(payload: {
+    source_type: string;
+    dealer_id?: string | null;
+    inventory_ids: string[];
+    generation_mode: string;
+    provider: string;
+    provider_model: string;
+    aspect_ratio: string;
+    resolution: string;
+    quality: string;
+    duration_seconds: number;
+    prompt_override?: string;
+    ignore_video360_flags: boolean;
+    notes?: string;
+    priority: string;
+  }): Promise<DashboardVideoJobResponse> {
+    return this.request('/api/video-jobs', {
       method: 'POST',
       body: JSON.stringify(payload),
     });

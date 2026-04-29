@@ -216,3 +216,17 @@ export interface DashboardGenerationJobResponse {
   payload_sent: Record<string, unknown>;
   notes?: string | null;
 }
+
+export interface DashboardVideoJobResponse {
+  ok: boolean;
+  run_id: string;
+  queue_items_prepared: number;
+  eligible_items: number;
+  skipped_items: number;
+  workflow_triggered: boolean;
+  trigger_mode: string;
+  monitoring_url: string;
+  video_jobs_url: string;
+  payload_sent: Record<string, unknown>;
+  notes?: string | null;
+}
