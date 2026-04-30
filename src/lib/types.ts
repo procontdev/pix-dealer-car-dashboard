@@ -34,6 +34,8 @@ export interface BaseAsset {
   version: number;
   status: string;
   created_at: string;
+  normalized_image_url?: string | null;
+  preferred_image_url?: string | null;
 }
 
 export interface NormalizedBaseAsset {

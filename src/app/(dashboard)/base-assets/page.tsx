@@ -34,6 +34,8 @@ export default function BaseAssetsPage() {
     return <div className="text-slate-400">Loading base assets...</div>;
   }
 
+  const getPreviewUrl = (asset: any) => asset.preferred_image_url || asset.normalized_image_url || asset.image_url;
+
   return (
     <div className="space-y-6">
       <div>
@@ -72,7 +74,7 @@ export default function BaseAssetsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <ImagePreview
-                src={asset.image_url}
+                src={getPreviewUrl(asset)}
                 alt={`${asset.make} ${asset.model}`}
                 width={300}
                 height={200}
@@ -93,6 +95,9 @@ export default function BaseAssetsPage() {
                 <p className="text-slate-400">
                   v{asset.version} • {new Date(asset.created_at).toLocaleDateString()}
                 </p>
+                <p className="text-slate-400">
+                  <span className="font-medium">Preview source:</span> {asset.normalized_image_url ? 'Normalized PNG' : 'Original base'}
+                </p>
               </div>
               <button
                 type="button"
@@ -101,6 +106,17 @@ export default function BaseAssetsPage() {
               >
                 View details
               </button>
+              {asset.normalized_image_url && (
+                <a
+                  href={asset.normalized_image_url}
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                >
+                  Download PNG
+                </a>
+              )}
               {asset.image_url && (
                 <a
                   href={asset.image_url}
@@ -109,7 +125,7 @@ export default function BaseAssetsPage() {
                   rel="noreferrer"
                   className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
                 >
-                  Download image
+                  Download original
                 </a>
               )}
             </CardContent>
@@ -135,22 +151,35 @@ export default function BaseAssetsPage() {
               <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
                 <div>
                   <ImagePreview
-                    src={selectedAsset.image_url || ''}
+                    src={getPreviewUrl(selectedAsset) || ''}
                     alt={`${selectedAsset.make} ${selectedAsset.model}`}
                     width={540}
                     height={360}
                   />
+                  <div className="mt-3 flex flex-wrap gap-2">
+                  {selectedAsset.normalized_image_url && (
+                    <a
+                      href={selectedAsset.normalized_image_url}
+                      download
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                    >
+                      Download PNG
+                    </a>
+                  )}
                   {selectedAsset.image_url && (
                     <a
                       href={selectedAsset.image_url}
                       download
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-3 inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                      className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
                     >
-                      Download image
+                      Download original
                     </a>
                   )}
+                  </div>
                 </div>
 
                 <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
