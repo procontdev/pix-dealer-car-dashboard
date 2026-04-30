@@ -101,6 +101,17 @@ export default function BaseAssetsPage() {
               >
                 View details
               </button>
+              {asset.image_url && (
+                <a
+                  href={asset.image_url}
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                >
+                  Download image
+                </a>
+              )}
             </CardContent>
           </Card>
         )) || (
@@ -129,6 +140,17 @@ export default function BaseAssetsPage() {
                     width={540}
                     height={360}
                   />
+                  {selectedAsset.image_url && (
+                    <a
+                      href={selectedAsset.image_url}
+                      download
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                    >
+                      Download image
+                    </a>
+                  )}
                 </div>
 
                 <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-5">

@@ -89,15 +89,28 @@ export default function ColorAssetsPage() {
     },
     {
       key: 'id',
-      header: 'Details',
+      header: 'Actions',
       render: (_, item) => (
-        <button
-          type="button"
-          onClick={() => setSelectedAsset(item)}
-          className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
-        >
-          View
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setSelectedAsset(item)}
+            className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+          >
+            View
+          </button>
+          {item.output_image_url && (
+            <a
+              href={item.output_image_url}
+              download
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+            >
+              Download
+            </a>
+          )}
+        </div>
       ),
     },
   ];
@@ -158,6 +171,17 @@ export default function ColorAssetsPage() {
                     width={520}
                     height={360}
                   />
+                  {selectedAsset.output_image_url && (
+                    <a
+                      href={selectedAsset.output_image_url}
+                      download
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                    >
+                      Download image
+                    </a>
+                  )}
                 </div>
 
                 <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
