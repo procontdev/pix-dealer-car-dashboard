@@ -1,5 +1,6 @@
 import type {
   BaseAsset,
+  NormalizedBaseAsset,
   ColorSpec,
   CompositionAsset,
   Dealer,
@@ -101,6 +102,10 @@ class ApiClient {
 
   async getBaseAssets(): Promise<BaseAsset[]> {
     return this.request('/api/base-assets');
+  }
+
+  async getNormalizedBaseAssets(): Promise<NormalizedBaseAsset[]> {
+    return this.request('/api/normalized-base-assets');
   }
 
   async getColorSpecs(): Promise<ColorSpec[]> {

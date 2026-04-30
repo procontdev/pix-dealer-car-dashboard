@@ -36,6 +36,23 @@ export interface BaseAsset {
   created_at: string;
 }
 
+export interface NormalizedBaseAsset {
+  id: string;
+  base_asset_id: string;
+  vehicle_key: string | null;
+  year: number | null;
+  make: string | null;
+  model: string | null;
+  trim: string | null;
+  base_image_url: string | null;
+  normalized_image_url: string;
+  filename: string;
+  file_size_bytes: number;
+  status: string;
+  created_at: string | number;
+  updated_at: string | number;
+}
+
 export interface ColorSpec {
   id: string;
   name: string;
