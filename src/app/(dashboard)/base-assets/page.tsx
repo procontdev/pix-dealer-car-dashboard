@@ -35,6 +35,7 @@ export default function BaseAssetsPage() {
   }
 
   const getPreviewUrl = (asset: any) => asset.preferred_image_url || asset.normalized_image_url || asset.image_url;
+  const getNormalizedUrl = (asset: any) => asset.normalized_image_url || null;
 
   return (
     <div className="space-y-6">
@@ -98,36 +99,50 @@ export default function BaseAssetsPage() {
                 <p className="text-slate-400">
                   <span className="font-medium">Preview source:</span> {asset.normalized_image_url ? 'Normalized PNG' : 'Original base'}
                 </p>
+                <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-xs">
+                  <p className="mb-1 text-slate-500">Preview URL</p>
+                  <p className="break-all font-mono text-slate-300">{getPreviewUrl(asset) || '-'}</p>
+                </div>
+                <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-xs">
+                  <p className="mb-1 text-slate-500">Normalized PNG URL</p>
+                  <p className="break-all font-mono text-slate-300">{getNormalizedUrl(asset) || 'Not available'}</p>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedAsset(asset)}
-                className="rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
-              >
-                View details
-              </button>
-              {asset.normalized_image_url && (
-                <a
-                  href={asset.normalized_image_url}
-                  download
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedAsset(asset)}
+                  className="rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
                 >
-                  Download PNG
-                </a>
-              )}
-              {asset.image_url && (
-                <a
-                  href={asset.image_url}
-                  download
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
-                >
-                  Download original
-                </a>
-              )}
+                  View details
+                </button>
+                {asset.normalized_image_url ? (
+                  <a
+                    href={asset.normalized_image_url}
+                    download
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                  >
+                    Download PNG
+                  </a>
+                ) : (
+                  <span className="inline-flex rounded-lg border border-dashed border-slate-800 px-3 py-2 text-xs text-slate-500">
+                    PNG not available
+                  </span>
+                )}
+                {asset.image_url && (
+                  <a
+                    href={asset.image_url}
+                    download
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex rounded-lg border border-slate-700 px-3 py-2 text-xs text-slate-200 transition hover:border-slate-500 hover:bg-slate-800/70"
+                  >
+                    Download original
+                  </a>
+                )}
+              </div>
             </CardContent>
           </Card>
         )) || (
@@ -156,6 +171,16 @@ export default function BaseAssetsPage() {
                     width={540}
                     height={360}
                   />
+                  <div className="mt-4 space-y-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 text-xs">
+                    <div>
+                      <p className="mb-1 text-slate-500">Preview URL</p>
+                      <p className="break-all font-mono text-slate-200">{getPreviewUrl(selectedAsset) || '-'}</p>
+                    </div>
+                    <div>
+                      <p className="mb-1 text-slate-500">Normalized PNG URL</p>
+                      <p className="break-all font-mono text-slate-200">{getNormalizedUrl(selectedAsset) || 'Not available'}</p>
+                    </div>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                   {selectedAsset.normalized_image_url && (
                     <a
@@ -178,6 +203,11 @@ export default function BaseAssetsPage() {
                     >
                       Download original
                     </a>
+                  )}
+                  {!selectedAsset.normalized_image_url && (
+                    <span className="inline-flex rounded-lg border border-dashed border-slate-800 px-3 py-2 text-xs text-slate-500">
+                      PNG not available
+                    </span>
                   )}
                   </div>
                 </div>
